@@ -1,0 +1,49 @@
+/* The side navigation menu */
+.locv101 {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Sidebar links */
+.locv101 a {
+    display: block;
+    color: black;
+    padding: 8px;
+    padding-left: 28px;
+    text-decoration: none;
+}
+
+/* Active/current link */
+.locv101 a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+/* Links on mouse-over */
+.locv101 a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+.locv101 h5 {
+    padding-top: 4%; 
+    padding-left: 0; 
+    margin-bottom: 0px;
+    color: #b70038;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.locv101 .thick {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 12px;
+    height: 10px !important;
+    color: #dad6d7;
+}
+
+.locv101 hr {
+    padding: 0px;
+    margin: 0px;
+}

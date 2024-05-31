@@ -1,0 +1,98 @@
+<!-- Override admin templates -->
+<!-- Reference: https://stackoverflow.com/questions/72304605/modify-filter-horizontal-search-field-django -->
+{% extends 'admin/change_form.html' %}    
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+<script>
+if (window.SelectBox) {
+  window.SelectBox.filter = function(id, text) {
+    // lowercase and strip accents off search text
+    const tokens = text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, "")
+      .split(/\s+/);
+    for (const node of SelectBox.cache[id]) {
+      node.displayed = 1;
+      // lowercase and strip accents off each node text in the filter list
+      const node_text = node.text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, "");
+
+      for (const token of tokens) {
+        if (!node_text.includes(token)) {
+          node.displayed = 0;
+          break;
+        }
+      }
+    }
+    SelectBox.redisplay(id);
+  }
+}
+</script>
+
+<!-- TinyMCE -->
+<script>
+  const listItem = ["id_description", "id_description_on_list", "id_body", "id_content", "id_additional_content", "id_content_on_list", "id_text"];
+  for (const selector of listItem) {
+    tinymce.init({
+      theme: "silver",
+      height: "250px",
+      menubar: "file edit view insert format tools table help",
+      plugins: "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
+      toolbar: "bold italic underline strikethrough | fontselect fontsizeselect formatselect | forecolor| link image media code|alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist|backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons |fullscreen  preview save print | insertfile pageembed template anchor codesample |a11ycheck ltr rtl | showcomments addcomment| undo redo |",
+      selector: 'textarea#' + selector,
+      /* enable title field in the Image dialog*/
+      image_title: true,
+      /* enable automatic uploads of images represented by blob or data URIs*/
+      automatic_uploads: true,
+      /*
+          URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+          images_upload_url: 'postAcceptor.php',
+          here we add custom filepicker only to Image dialog
+        */
+      file_picker_types: 'image',
+      /* and here's our custom image picker*/
+      file_picker_callback: function (cb, value, meta) {
+      var input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.setAttribute('accept', 'image/*');
+
+      /*
+        Note: In modern browsers input[type="file"] is functional without
+        even adding it to the DOM, but that might not be the case in some older
+        or quirky browsers like IE, so you might want to add it to the DOM
+        just in case, and visually hide it. And do not forget do remove it
+        once you do not need it anymore.
+      */
+
+      input.onchange = function () {
+        var file = this.files[0];
+
+        var reader = new FileReader();
+        reader.onload = function () {
+          /*
+            Note: Now we need to register the blob in TinyMCEs image blob
+            registry. In the next release this part hopefully won't be
+            necessary, as we are looking to handle it internally.
+          */
+          var id = 'blobid' + (new Date()).getTime();
+          var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+          var base64 = reader.result.split(',')[1];
+          var blobInfo = blobCache.create(id, file, base64);
+          blobCache.add(blobInfo);
+
+          /* call the callback and populate the Title field with the file name */
+          cb(blobInfo.blobUri(), { title: file.name });
+        };
+        reader.readAsDataURL(file);
+      };
+
+      input.click();
+    },
+      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+});
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+<p>
+    {% if interest.info2 %}
+    <strong> {{ info2_label }} </strong> :
+    {% if interest.info2_url %}
+    <a href="{{ interest.info2_url }}" style="text-decoration: none; color: #688c3b">{{ interest.info2 }}</a>
+    {% else %} {{ interest.info2 }} {% endif %}
+    <br /> {% endif %}
+    {% if interest.info5 %}
+    <strong> {{ info5_label }} </strong> :
+    {% if interest.info5_url %}
+    <a href="{{ interest.info5_url }}" style="text-decoration: none; color: #688c3b">{{ interest.info5 }}</a>
+    {% else %} {{ interest.info5 }} {% endif %}
+    <br /> {% endif %}
+    {% if interest.info3 %}
+    <strong> {{ info3_label }} </strong> :
+    {% if interest.info3_url %}
+    <a href="{{ interest.info3_url }}" style="text-decoration: none; color: #688c3b">{{ interest.info3 }}</a>
+    {% else %} {{ interest.info3 }} {% endif %}
+    <br /> {% endif %}
+    {% if interest.info1 %}
+    <strong> {{ info1_label }} </strong> :
+    {% if interest.info1_url %}
+    <a href="{{ interest.info1_url }}" style="text-decoration: none; color: #688c3b">{{ interest.info1 }}</a>
+    {% else %} {{ interest.info1 }} {% endif %}
+    <br /> {% endif %}
+    {{ interest.text|safe|truncatewords:25 }}
+</p>
