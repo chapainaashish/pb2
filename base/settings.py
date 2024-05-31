@@ -369,16 +369,16 @@ CAPTCHA_IMAGE_SIZE = (110, 50)
 CAPTCHA_FONT_SIZE = 30
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "res",
-#         "USER": "postgres",
-#         "PASSWORD": "i$3Q2:Sw4-KUx",
-#         "HOST": "localhost",
-#         "PORT": "",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "main",
+        "USER": "postgres",
+        "PASSWORD": "i$3Q2:Sw4-KUx",
+        "HOST": "localhost",
+        "PORT": "",
+    }
+}
 
 # DATABASES = {
 #     "default": {
@@ -387,16 +387,16 @@ CAPTCHA_FONT_SIZE = 30
 #     }
 # }
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "res",
-        "USER": "postgres",
-        "PASSWORD": "i$3Q2:Sw4-KUx",
-        "HOST": "46.250.238.11",
-        "PORT": "5432",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "res",
+#         "USER": "postgres",
+#         "PASSWORD": "i$3Q2:Sw4-KUx",
+#         "HOST": "46.250.238.11",
+#         "PORT": "5432",
+#     }
+# }
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
