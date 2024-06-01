@@ -1,5 +1,5 @@
 // Navbar
-$(function() {
+$(function () {
   var isMobile = window.innerWidth <= 1280; // Mobile and Tablet Screen Size
   if (isMobile) {
     handleMobileEvents();
@@ -11,8 +11,7 @@ $(function() {
 function showHideMegaMenuItem(id) {
   const megaMenuItems = document.getElementsByClassName("megamenu-item");
   const menuItem = document.getElementById('nav-item' + id);
-  for(var x=0; x < megaMenuItems.length; x++)
-  {
+  for (var x = 0; x < megaMenuItems.length; x++) {
     if (menuItem != megaMenuItems[x]) {
       megaMenuItems[x].classList.add('collapse');
     }
@@ -26,7 +25,7 @@ function showHideMegaMenuItem(id) {
   }
 }
 
-function hideAllChildMegaMenu(){
+function hideAllChildMegaMenu() {
   const menuRegions = document.getElementsByClassName('mm-region-img');
   for (var i = 0; i < menuRegions.length; i++) {
     var id = menuRegions[i].id.replace('region-img', '');
@@ -43,20 +42,20 @@ function hideAllChildMegaMenu(){
 function handleDesktopEvents() {
   const menuRegions = document.getElementsByClassName('list-region');
   for (var i = 0; i < menuRegions.length; i++) {
-    menuRegions[i].addEventListener('mouseenter', function() {
+    menuRegions[i].addEventListener('mouseenter', function () {
       showMegaMenuRegion(this.id);
     });
-    menuRegions[i].addEventListener('mouseleave', function() {
+    menuRegions[i].addEventListener('mouseleave', function () {
       hideMegaMenuRegion(this.id);
     });
   }
 
   const menuPages = document.getElementsByClassName('list-page');
   for (var i = 0; i < menuPages.length; i++) {
-    menuPages[i].addEventListener('mouseenter', function() {
+    menuPages[i].addEventListener('mouseenter', function () {
       showMegaMenuPage(this.id);
     });
-    menuPages[i].addEventListener('mouseleave', function() {
+    menuPages[i].addEventListener('mouseleave', function () {
       hideMegaMenuPage(this.id);
     });
   }
@@ -65,7 +64,7 @@ function handleDesktopEvents() {
 function handleMobileEvents() {
   const menuRegions = document.getElementsByClassName('mm-region-img');
   for (var i = 0; i < menuRegions.length; i++) {
-    menuRegions[i].addEventListener('click', function() {
+    menuRegions[i].addEventListener('click', function () {
       if (this.classList.contains('active')) {
         hideAllChildMegaMenu();
         this.classList.remove('active');
@@ -80,7 +79,7 @@ function handleMobileEvents() {
 
   const menuPages = document.getElementsByClassName('mm-page-img');
   for (var i = 0; i < menuPages.length; i++) {
-    menuPages[i].addEventListener('click', function() {
+    menuPages[i].addEventListener('click', function () {
       if (this.classList.contains('active')) {
         hideAllChildMegaMenu();
         this.classList.remove('active');
@@ -97,10 +96,9 @@ function handleMobileEvents() {
 function showMegaMenuRegion(id) {
   const megaMenuItems = document.getElementsByClassName("megamenu-item");
   var megaMenuItemHeight = 0;
-  for(var x=0; x < megaMenuItems.length; x++)
-  {
+  for (var x = 0; x < megaMenuItems.length; x++) {
     if (!megaMenuItems[x].classList.contains("collapse")) {
-      megaMenuItemHeight = megaMenuItems[x].offsetHeight-1 + 80;
+      megaMenuItemHeight = megaMenuItems[x].offsetHeight - 1 + 80;
     }
   }
   const megaMenuRegion = document.getElementById('region-item' + id);
@@ -118,10 +116,9 @@ function hideMegaMenuRegion(id) {
 function showMegaMenuPage(id) {
   const megaMenuItems = document.getElementsByClassName("megamenu-item");
   var megaMenuItemHeight = 0;
-  for(var x=0; x < megaMenuItems.length; x++)
-  {
+  for (var x = 0; x < megaMenuItems.length; x++) {
     if (!megaMenuItems[x].classList.contains("collapse")) {
-      megaMenuItemHeight = megaMenuItems[x].offsetHeight-1 + 80;
+      megaMenuItemHeight = megaMenuItems[x].offsetHeight - 1 + 80;
     }
   }
   const megaMenuPage = document.getElementById('page-item' + id);
@@ -274,47 +271,47 @@ $(document).ready(function () {
 });
 
 // Refresh captcha
-$(function() {
+$(function () {
   // Add refresh button after field (this can be done in the template as well)
   $('img.captcha').after(
     $('<a href="#void" class="captcha-refresh btn btn-secondary m-3">Refresh</a>')
   );
 
   // Click-handler for the refresh-link
-  $('.captcha-refresh').click(function(){
-      var $form = $(this).parents('form');
-      var url = location.protocol + "//" + window.location.hostname + ":"
-                + location.port + "/captcha/refresh/";
+  $('.captcha-refresh').click(function () {
+    var $form = $(this).parents('form');
+    var url = location.protocol + "//" + window.location.hostname + ":"
+      + location.port + "/captcha/refresh/";
 
-      // Make the AJAX-call
-      $.getJSON(url, {}, function(json) {
-          $form.find('input[name="captcha_0"]').val(json.key);
-          $form.find('img.captcha').attr('src', json.image_url);
-      });
+    // Make the AJAX-call
+    $.getJSON(url, {}, function (json) {
+      $form.find('input[name="captcha_0"]').val(json.key);
+      $form.find('img.captcha').attr('src', json.image_url);
+    });
 
-      return false;
+    return false;
   });
 });
 
 // Refresh captcha automatically
-$(document).ready(function() {
+$(document).ready(function () {
   // Refresh captcha every 5 minutes
-  setInterval(function() {
-      var $form = $('.captcha-refresh').parents('form');
-      var url = location.protocol + "//" + window.location.hostname + ":"
-                + location.port + "/captcha/refresh/";
-      
-      // Make the AJAX call
-      $.getJSON(url, {}, function(json) {
-          $form.find('input[name="captcha_0"]').val(json.key);
-          $form.find('img.captcha').attr('src', json.image_url);
-      });
+  setInterval(function () {
+    var $form = $('.captcha-refresh').parents('form');
+    var url = location.protocol + "//" + window.location.hostname + ":"
+      + location.port + "/captcha/refresh/";
+
+    // Make the AJAX call
+    $.getJSON(url, {}, function (json) {
+      $form.find('input[name="captcha_0"]').val(json.key);
+      $form.find('img.captcha').attr('src', json.image_url);
+    });
   }, 1000 * 60 * 5);  // refresh every 5 minutes
 });
 
 // Login Form Popup
-$(function() {
-  $('#login-form').submit(function(event) {
+$(function () {
+  $('#login-form').submit(function (event) {
     event.preventDefault();
     var form = $(this);
     var url = form.attr('action');
@@ -324,7 +321,7 @@ $(function() {
       url: url,
       type: 'POST',
       data: data,
-      success: function(response) {
+      success: function (response) {
         if (redirectUrl) {
           window.location.href = redirectUrl;
           clearSessionRedirectUrl();
@@ -332,7 +329,7 @@ $(function() {
           window.location.reload();
         }
       },
-      error: function(xhr) {
+      error: function (xhr) {
         var errorJson = JSON.parse(xhr.responseText);
         var errorList = '';
 
@@ -350,8 +347,8 @@ $(function() {
 });
 
 // Signup Form Popup
-$(function() {
-  $('#signup-form').submit(function(event) {
+$(function () {
+  $('#signup-form').submit(function (event) {
     event.preventDefault();
     var form = $(this);
     var url = form.attr('action');
@@ -362,7 +359,7 @@ $(function() {
       url: url,
       type: 'POST',
       data: data,
-      success: function(response) {
+      success: function (response) {
         if (redirectUrl) {
           window.location.href = redirectUrl;
           clearSessionRedirectUrl();
@@ -370,17 +367,17 @@ $(function() {
           window.location.reload();
         }
       },
-      error: function(xhr) {
+      error: function (xhr) {
         var errorJson = JSON.parse(xhr.responseText);
         var errorList = '';
-      
-        Object.values(errorJson.form.fields).forEach(function(field) {
+
+        Object.values(errorJson.form.fields).forEach(function (field) {
           console.log(errorJson.form.fields);
-          field.errors.forEach(function(error) {
+          field.errors.forEach(function (error) {
             errorList += '<li>' + error + '</li>';
           });
         });
-      
+
         var result = '<div id="signup-error"><div class="alert alert-block alert-danger"><ul class="m-0">' + errorList + '</ul></div></div>';
         $('#signup-error').replaceWith(result);
       }
@@ -403,7 +400,7 @@ function clearSessionRedirectUrl() {
 }
 
 // Filter Checkbox
-$(document).ready(function(){
+$(document).ready(function () {
   $(".ajaxLoader").hide();
   $("#loading-filter-selection").hide();
   filterDataFromURL();
@@ -411,20 +408,20 @@ $(document).ready(function(){
   filterData();
 
   // If user select anything
-	$(".filter-checkbox").on("change", function(){
+  $(".filter-checkbox").on("change", function () {
     closeFilterDropdown();
     syncFilterCheckbox($(this));
     showSelectedFilter();
     // filterSelection();
     filterData();
     scrollToInterestSection();
-	});
-  
+  });
+
 });
 
 // Sync Filter Checkbox on Filter Selection and Offcanvas
-function syncFilterCheckbox(current){
-  $('input[type=checkbox]').each(function(index) {
+function syncFilterCheckbox(current) {
+  $('input[type=checkbox]').each(function (index) {
     if (current.next("label").text() == $(this).next("label").text()) {
       $(this).prop('checked', current.prop('checked'));
     }
@@ -432,7 +429,7 @@ function syncFilterCheckbox(current){
 }
 
 // Close Filter Dropdown
-function closeFilterDropdown(){
+function closeFilterDropdown() {
   $('.dropdown-btn.show').removeClass('show');
   $('.dropdown-menu.show').removeClass('show');
   $('.collapse-btn').addClass('collapsed');
@@ -440,21 +437,21 @@ function closeFilterDropdown(){
 }
 
 // Remove Selected Filter
-function removeSelectedFilter(text){
-  $('input[type=checkbox]:checked').each(function(index) {
+function removeSelectedFilter(text) {
+  $('input[type=checkbox]:checked').each(function (index) {
     if (text == $(this).next("label").text()) {
       $(this).prop('checked', false).change();
-        return false;
+      return false;
     }
   });
 }
 
 // Filter From URL
-function filterDataFromURL(){
+function filterDataFromURL() {
   var _data = filterList;
 
-  $(".filter-checkbox").each(function(index,ele){
-    var _filterKey=$(this).data('filter');
+  $(".filter-checkbox").each(function (index, ele) {
+    var _filterKey = $(this).data('filter');
     if (_data[_filterKey] == $(this).next().text()) {
       $(this).prop('checked', true);
     }
@@ -462,36 +459,36 @@ function filterDataFromURL(){
 }
 
 // Filter Data
-function filterData(){
-  var _data={defaultInterests, perPage, pageType};
+function filterData() {
+  var _data = { defaultInterests, perPage, pageType };
 
-  $(".filter-checkbox").each(function(index,ele){
-    var _filterVal=$(this).val();
-    var _filterKey=$(this).data('filter');
-    _data[_filterKey]=Array.from(document.querySelectorAll('input[data-filter='+_filterKey+']:checked')).map(function(el){
+  $(".filter-checkbox").each(function (index, ele) {
+    var _filterVal = $(this).val();
+    var _filterKey = $(this).data('filter');
+    _data[_filterKey] = Array.from(document.querySelectorAll('input[data-filter=' + _filterKey + ']:checked')).map(function (el) {
       return el.value;
     });
   });
-  
+
   // Run Ajax
   $.ajax({
-    url:'/filter-data',
-    data:_data,
-    dataType:'json',
-    beforeSend:function(){
+    url: '/filter-data',
+    data: _data,
+    dataType: 'json',
+    beforeSend: function () {
       $(".ajaxLoader").show();
       // Disable Filter Selection while processing
-      $("#filter-selection").children().css({"pointer-events": "none", "opacity": "0.5"});
-      $("#offcanvasFilter").children().css({"pointer-events": "none", "opacity": "0.5"});
-      $("#selected-filters").children().css({"pointer-events": "none", "opacity": "0.5"});
+      $("#filter-selection").children().css({ "pointer-events": "none", "opacity": "0.5" });
+      $("#offcanvasFilter").children().css({ "pointer-events": "none", "opacity": "0.5" });
+      $("#selected-filters").children().css({ "pointer-events": "none", "opacity": "0.5" });
     },
-    success:function(res){
+    success: function (res) {
       // Enable Filter Selection after success processing
-      $("#filter-selection").children().css({"pointer-events": "auto", "opacity": "1"});
-      $("#offcanvasFilter").children().css({"pointer-events": "auto", "opacity": "1"});
-      $("#selected-filters").children().css({"pointer-events": "auto", "opacity": "1"});
+      $("#filter-selection").children().css({ "pointer-events": "auto", "opacity": "1" });
+      $("#offcanvasFilter").children().css({ "pointer-events": "auto", "opacity": "1" });
+      $("#selected-filters").children().css({ "pointer-events": "auto", "opacity": "1" });
       showAllFilter();
-      $(".filter-checkbox").each(function(index, ele){
+      $(".filter-checkbox").each(function (index, ele) {
         $(this).next().next().text(" (" + res.count_result[index] + ")");
         if ($(this).next().next().text() == " (0)") {
           $(this).parent().parent().hide();
@@ -506,23 +503,23 @@ function filterData(){
 }
 
 // Automatically Scroll to  
-function scrollToInterestSection(){
-  $('html, body').animate({scrollTop: $("#filteredInterests").offset().top-300}, 100); 
+function scrollToInterestSection() {
+  $('html, body').animate({ scrollTop: $("#filteredInterests").offset().top - 300 }, 100);
 }
 
 // Show Selected Filters
-function showSelectedFilter(){
+function showSelectedFilter() {
   var $checkedCheckbox = $('input[type="checkbox"]:checked');
-  var selectedFilters = $checkedCheckbox.map(function() {
+  var selectedFilters = $checkedCheckbox.map(function () {
     return $(this).next("label").text();
   }).get();
 
   // Remove Duplicate
   selectedFilters = [...new Set(selectedFilters)];
-  
+
   var list = "";
-  for(i=0; i<selectedFilters.length; i++){
-    list += "<button class='btn btn-secondary btn-sm ps-3 pe-2 mx-1 selected-filter' type='button' onclick='removeSelectedFilter(\""+selectedFilters[i].replace(/'/g, "&#39;")+"\")' >"+selectedFilters[i]+"<span class='ps-2 pe-1'>x</span>"+"</button>";
+  for (i = 0; i < selectedFilters.length; i++) {
+    list += "<button class='btn btn-secondary btn-sm ps-3 pe-2 mx-1 selected-filter' type='button' onclick='removeSelectedFilter(\"" + selectedFilters[i].replace(/'/g, "&#39;") + "\")' >" + selectedFilters[i] + "<span class='ps-2 pe-1'>x</span>" + "</button>";
   }
   $(".selectedFilters").html(list);
 }
@@ -686,28 +683,28 @@ function showAllFilter() {
 // }
 
 // Reset Filter
-function resetAllFilters(){
-  $('input[type=checkbox]:checked').each(function(index) {
+function resetAllFilters() {
+  $('input[type=checkbox]:checked').each(function (index) {
     $(this).prop('checked', false).change();
   });
 }
 
 // Interest Section Pagination
-function loadMore(currentPage){
-  var _data={currentInterests, perPage, currentPage};
+function loadMore(currentPage) {
+  var _data = { currentInterests, perPage, currentPage };
 
   // Run Ajax
   $.ajax({
-    url:'/load-more-data',
-    data:_data,
-    dataType:'json',
-    beforeSend:function(){
+    url: '/load-more-data',
+    data: _data,
+    dataType: 'json',
+    beforeSend: function () {
       $(".ajaxLoader").show();
     },
-    success:function(res){
+    success: function (res) {
       $("#filteredInterests").html(res.data);
       $(".ajaxLoader").hide();
-      $('html, body').animate({scrollTop: $("#filteredInterests").offset().top-300}, 100); 
+      $('html, body').animate({ scrollTop: $("#filteredInterests").offset().top - 300 }, 100);
       $('#view-filtered-interests').text("View all " + res.total_interests + " Restaurants");
     }
   });

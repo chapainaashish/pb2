@@ -1,11 +1,21 @@
-from django.contrib import admin
 from django import forms
-from .models import RegionImage, Region, Interest, TopSliderImage, CoverSliderImage, ReviewAndRating, Comment
-from filters.models import Filter
+from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .resources import InterestResource
+
 from base import config
+from filters.models import Filter
+
 from .forms import InterestAdminForm
+from .models import (
+    Comment,
+    CoverSliderImage,
+    Interest,
+    Region,
+    RegionImage,
+    ReviewAndRating,
+    TopSliderImage,
+)
+from .resources import InterestResource
 
 
 class RegionImageInline(admin.TabularInline):
@@ -13,9 +23,13 @@ class RegionImageInline(admin.TabularInline):
 
 
 class RegionAdmin(admin.ModelAdmin):
-    search_fields = ['name']
+    search_fields = ["name"]
     inlines = [RegionImageInline]
-    readonly_fields = ('slug', 'id', 'geo_link',)
+    readonly_fields = (
+        "slug",
+        "id",
+        "geo_link",
+    )
 
 
 class TopSliderImageInline(admin.TabularInline):
@@ -29,14 +43,17 @@ class CoverSliderImageInline(admin.TabularInline):
 class FilterInlineForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'instance' in kwargs:
+        if "instance" in kwargs:
             # Get the selected filter instance
-            instance = kwargs['instance']
+            instance = kwargs["instance"]
 
             # Check if the instance is saved (editing existing)
             if instance.pk:
                 # Filter the available filters based on the selected filter's type
-                self.fields['filter'].queryset = Filter.objects.filter(types=instance.filter.types)
+                self.fields["filter"].queryset = Filter.objects.filter(
+                    types=instance.filter.types
+                )
+
 
 class FilterInline(admin.TabularInline):
     model = Filter.interests.through
@@ -46,11 +63,21 @@ class FilterInline(admin.TabularInline):
 
 class InterestAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     inlines = [TopSliderImageInline, CoverSliderImageInline, FilterInline]
-    readonly_fields = ('id', 'add_date', 'mod_date',)
-    search_fields = ['name', 'text']
-    list_filter = ['display', 'region', 'isvalidated']
-    list_display = ('id', 'name', 'add_date', 'mod_date', 'isvalidated',)
-    list_display_links = ('id', 'name')
+    readonly_fields = (
+        "id",
+        "add_date",
+        "mod_date",
+    )
+    search_fields = ["name", "text"]
+    list_filter = ["display", "region", "isvalidated"]
+    list_display = (
+        "id",
+        "name",
+        "add_date",
+        "mod_date",
+        "isvalidated",
+    )
+    list_display_links = ("id", "name")
     resource_class = InterestResource
     form = InterestAdminForm
 
@@ -71,13 +98,13 @@ class InterestAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 
 class ReviewAndRatingAdmin(admin.ModelAdmin):
-    search_fields = ['title', 'review']
-    list_filter = ['approved']
+    search_fields = ["title", "review"]
+    list_filter = ["approved"]
 
 
 class CommentAdmin(admin.ModelAdmin):
-    search_fields = ['title', 'body']
-    list_filter = ['approved']
+    search_fields = ["title", "body"]
+    list_filter = ["approved"]
 
 
 admin.site.register(Region, RegionAdmin)
