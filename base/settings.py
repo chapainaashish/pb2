@@ -8,13 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 SECRET_KEY = "django-insecure-q8h&6jj@l1v$t$$q%jl=$y2j-08nxptg1r0@z2m(qd(semll98"
-
 DEBUG = True
-
 ALLOWED_HOSTS = ["*"]
 
-
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -61,9 +57,7 @@ LOGIN_REDIRECT_URL = "/profile/"
 LOGIN_URL = "/login/"
 
 AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
-    # `allauth` specific authentication methods, such as login by e-mail
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
@@ -121,9 +115,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "base.wsgi.application"
 
 
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -139,9 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
@@ -259,108 +247,108 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 # Admin Ordering
-# ADMIN_ORDERING = [
-#     (
-#         "interests",
-#         [
-#             "Region",
-#             "ReviewAndRating",
-#             "Comment",
-#             "Interest",
-#         ],
-#     ),
-#     (
-#         "pages_app",
-#         [
-#             "ContentPage",
-#             "Navbar",
-#             "Footer",
-#             "Sidebar",
-#             "Script",
-#         ],
-#     ),
-#     (
-#         "filters",
-#         [
-#             "World",
-#             "Country",
-#             "Region",
-#             "City",
-#             "Facility",
-#             "Service",
-#             "Rating",
-#             "SP1",
-#             "SP2",
-#             "SP3",
-#         ],
-#     ),
-#     (
-#         "mailing",
-#         [
-#             "ContactEntry",
-#             "Subscriber",
-#         ],
-#     ),
-#     (
-#         "list",
-#         [
-#             "Autoblogging",
-#             "Category",
-#             "Post",
-#             "Billboard",
-#             "Tag",
-#         ],
-#     ),
-#     (
-#         "account",
-#         [
-#             "EmailAddress",
-#         ],
-#     ),
-#     (
-#         "accounts",
-#         [
-#             "Profile",
-#             "User",
-#         ],
-#     ),
-#     (
-#         "auth",
-#         [
-#             "Group",
-#         ],
-#     ),
-#     (
-#         "sites",
-#         [
-#             "Site",
-#         ],
-#     ),
-#     (
-#         "socialaccount",
-#         [
-#             "SocialAccount",
-#             "SocialToken",
-#             "SocialApp",
-#         ],
-#     ),
-# ]
+ADMIN_ORDERING = [
+    (
+        "interests",
+        [
+            "Region",
+            "ReviewAndRating",
+            "Comment",
+            "Interest",
+        ],
+    ),
+    (
+        "pages_app",
+        [
+            "ContentPage",
+            "Navbar",
+            "Footer",
+            "Sidebar",
+            "Script",
+        ],
+    ),
+    (
+        "filters",
+        [
+            "World",
+            "Country",
+            "Region",
+            "City",
+            "Facility",
+            "Service",
+            "Rating",
+            "SP1",
+            "SP2",
+            "SP3",
+            "Filter",
+        ],
+    ),
+    (
+        "mailing",
+        [
+            "ContactEntry",
+            "Subscriber",
+        ],
+    ),
+    (
+        "list",
+        [
+            "Autoblogging",
+            "Category",
+            "Post",
+            "Billboard",
+            "Tag",
+        ],
+    ),
+    (
+        "account",
+        [
+            "EmailAddress",
+        ],
+    ),
+    (
+        "accounts",
+        [
+            "Profile",
+            "User",
+        ],
+    ),
+    (
+        "auth",
+        [
+            "Group",
+        ],
+    ),
+    (
+        "sites",
+        [
+            "Site",
+        ],
+    ),
+    (
+        "socialaccount",
+        [
+            "SocialAccount",
+            "SocialToken",
+            "SocialApp",
+        ],
+    ),
+]
 
 
-# Creating a sort function
-# def get_app_list(self, request):
-#     app_dict = self._build_app_dict(request)
-#     for app_name, object_list in ADMIN_ORDERING:
-#         try:
-#             app = app_dict[app_name]
-#             app["models"].sort(key=lambda x: object_list.index(x["object_name"]))
-#             yield app
-#         except:
-#             print()
+def get_app_list(self, request):
+    app_dict = self._build_app_dict(request)
+    for app_name, object_list in ADMIN_ORDERING:
+        try:
+            app = app_dict[app_name]
+            app["models"].sort(key=lambda x: object_list.index(x["object_name"]))
+            yield app
+        except Exception as e:
+            print(f"Error with app {app_name}: {e}")
 
 
 # Covering django.contrib.admin.AdminSite.get_app_list
-# admin.AdminSite.get_app_list = get_app_list
+admin.AdminSite.get_app_list = get_app_list
 
 
 # Settings for django-simple-captcha
@@ -371,8 +359,8 @@ CAPTCHA_FONT_SIZE = 30
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "main",
-        "USER": "postgres",
+        "NAME": "res_prod",
+        "USER": "toprestaurants_tables",
         "PASSWORD": "i$3Q2:Sw4-KUx",
         "HOST": "localhost",
         "PORT": "",
